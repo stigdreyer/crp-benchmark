@@ -1,0 +1,20 @@
+{
+  "name": "crp-benchmark",
+  "version": "0.0.1",
+  "description": "Benchmarking the CrowdProcess platform",
+  "dependencies": {
+    "crp-auth-client": "*",
+    "crp-task-client": "*",
+    "crp-task-producer-client": "*",
+    "express": "3.x",
+    "ws": "0.4.x",
+    "levelup": "0.13.x",
+    "leveldown": "0.7.x",
+    "level-live-stream": "1.4.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stig Dreyer"
+}

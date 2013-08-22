@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* CSS Styling Here */
+    </style>
+    <link rel="stylesheet" href="http://tenxer.github.io/xcharts/css/master.css">
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://tenxer.github.io/xcharts/js/xcharts.min.js"></script>
+    <script src="http://tenxer.github.io/xcharts/js/rainbow.min.js"></script>
+    <script>
+      function updateGraphs(data) {
+        if(data[0] == "chartOne") var myChart1 = new xChart('line-dotted', data[1], '#myChart1');
+        else if(data[0] == "chartTwo") var myChart2 = new xChart('line-dotted', data[1], '#myChart2');
+      }
+
+      var host = window.document.location.host.replace(/:.*/, '');
+      var ws = new WebSocket('ws://' + host + ':8080');
+      ws.onmessage = function (event) {
+        updateGraphs(JSON.parse(event.data));
+        document.getElementById('data').innerHTML = event.data;
+      };
+      
+      var confirmOnPageExit = function (e) {
+        // If we haven't been passed the event get the window.event
+        e = e || window.event;
+
+        var message = 'Are you sure you want to close this page?';
+
+        // For IE6-8 and Firefox prior to version 4
+        if (e) 
+        {
+            e.returnValue = message;
+        }
+
+        // For Chrome, Safari, IE8+ and Opera 12+
+        return message;
+      };
+
+      //window.onbeforeunload = confirmOnPageExit;
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="left">
+        <figure style="width: 500px; height: 400px;" id="myChart1"></figure>
+      </div>
+      <div class="right">
+        <figure style="width: 500px; height: 400px;" id="myChart2"></figure>
+      </div>
+    </div>
+    <div class="wrapper">
+      <figure style="width: 1000px; height: 600px;" id="myChart3"></figure>
+    </div>
+    <div id='data'></div>
+  </body>
+</html>
